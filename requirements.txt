@@ -1,0 +1,8 @@
+torch
+numpy
+opencv-python
+gym
+gym-super-mario-bros
+nes-py
+pyyaml
+matplotlib

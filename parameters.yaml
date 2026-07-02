@@ -1,0 +1,50 @@
+# -----------------------------------------------------------------------
+# Mario DDQN Hyperparameter Sets
+# Usage:  python agent.py default --train
+#         python agent.py fast --train
+# -----------------------------------------------------------------------
+
+default:
+  # Learning rate (slightly reduced for CNN stability)
+  alpha: 0.00025
+
+  # Discount factor (important for Mario long-term rewards)
+  gamma: 0.99
+
+  # Exploration strategy
+  epsilon_init: 1.0
+  epsilon_min: 0.05
+  epsilon_decay: 0.995
+
+  # Replay memory (bigger = better stability for pixel RL)
+  replay_memory_size: 100000
+
+  # Batch size (standard for DDQN CNN)
+  mini_batch_size: 32
+
+  # Target network sync (in optimizer steps)
+  network_sync_rate: 1000
+
+  # Safety stop per episode
+  reward_threshold: 10000
+
+  # Model save improvement threshold
+  save_improvement_threshold: 1.0
+
+
+fast:
+  # Faster experimental training config
+  alpha: 0.0005
+  gamma: 0.99
+
+  epsilon_init: 1.0
+  epsilon_min: 0.5
+  epsilon_decay: 0.9995
+
+  replay_memory_size: 50000
+  mini_batch_size: 32
+
+  network_sync_rate: 500
+
+  reward_threshold: 10000
+  save_improvement_threshold: 0.5

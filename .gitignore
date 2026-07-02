@@ -1,0 +1,27 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# =========================
+# PyTorch / ML outputs
+# =========================
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Training runs / logs
+runs/
+checkpoints/
+logs/
+*.log
