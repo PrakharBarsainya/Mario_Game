@@ -1,75 +1,127 @@
-# 🍄 Super Mario Reinforcement Learning using Deep Q-Network (DQN)
+# 🍄 Super Mario Bros Deep Q-Network (DQN) Reinforcement Learning Agent
 
-This project implements a Deep Q-Network (DQN) agent that learns to play **Super Mario Bros** through Reinforcement Learning. Instead of following predefined rules, the agent interacts with the game environment, learns from rewards and penalties, and gradually improves its gameplay by maximizing cumulative rewards.
+This project implements a **Deep Q-Network (DQN) / Double DQN (DDQN) agent** that learns to play :contentReference[oaicite:0]{index=0} using Reinforcement Learning.
 
-The agent uses a Convolutional Neural Network (CNN) to process game frames and estimate Q-values for each possible action. During training, it balances exploration and exploitation using an epsilon-greedy policy, stores experiences in a replay memory, and periodically updates a target network for stable learning. These are standard components of DQN-based agents. :contentReference[oaicite:0]{index=0}
+The agent interacts directly with the environment, learns from rewards, and gradually improves gameplay through trial and error using deep neural networks.
 
-## 🚀 Features
+---
 
-- Deep Q-Network (DQN) implementation using PyTorch
-- Experience Replay Memory
-- Target Network Synchronization
-- Epsilon-Greedy Exploration Strategy
-- CNN-based state representation
-- Reward-based learning without human intervention
-- Model saving and loading
-- Performance visualization using training statistics
+# 🚀 Features
 
-## 🛠️ Technologies Used
+- Deep Q-Network (DQN) / Double DQN (DDQN) implementation using PyTorch
+- Experience Replay Memory for stable learning
+- Target Network synchronization
+- Epsilon-Greedy exploration strategy
+- CNN-based feature extraction from game frames
+- Frame stacking for temporal awareness
+- Frame skipping for faster training
+- Checkpoint saving and automatic resume support
+- Best model saving based on reward improvement
+- Continuous training and evaluation modes
+- Stuck detection mechanism to avoid infinite loops
+- GPU/CPU automatic device selection
+
+---
+
+# 🛠️ Technologies Used
 
 - Python
 - PyTorch
-- Gymnasium / gym-super-mario-bros
+- gymnasium + gym-super-mario-bros
 - NumPy
 - OpenCV
-- Matplotlib
+- PyYAML
 
-## 🧠 How It Works
+---
 
-1. The agent observes the current game frame.
-2. The DQN predicts Q-values for all available actions.
-3. An action is selected using an epsilon-greedy strategy.
-4. The environment returns the next state and reward.
-5. The experience is stored in replay memory.
-6. Mini-batches are sampled to train the neural network.
-7. The target network is periodically updated for stable learning.
+# 🧠 How It Works
 
-## 📊 Training Objectives
+1. The agent observes stacked grayscale game frames
+2. A CNN extracts features from the environment state
+3. The DQN predicts Q-values for each action
+4. Action is selected using epsilon-greedy policy
+5. The environment returns next state and reward
+6. Transitions are stored in replay memory
+7. Mini-batches are sampled to train the network
+8. Target network is periodically updated for stability
+9. Training continues across episodes with checkpointing
+
+---
+
+# 🎮 Environment Details
+
+- Game: :contentReference[oaicite:1]{index=1}
+- Action Space: RIGHT_ONLY (movement + jump actions)
+- Observation: 4 stacked grayscale frames (84×84)
+- Frame Skip: 4
+- Reward: Environment-defined game score
+
+---
+
+# 📊 Training Objectives
 
 - Maximize total episode reward
-- Learn efficient movement and jumping strategies
+- Learn efficient movement and jumping
 - Avoid enemies and obstacles
-- Reach the end of the level with optimal performance
+- Reach the level end efficiently
+- Escape local optima and stuck states
 
-## 📈 Results
+---
 
-After sufficient training, the agent learns to:
-- Move toward the goal efficiently
-- Avoid common obstacles
-- Perform jumps when necessary
-- Improve cumulative rewards over time
+# 📈 Training Features
 
-## 📚 Learning Concepts
+- Automatic checkpoint saving and resume
+- Best model tracking
+- Epsilon decay with recovery boosting
+- Experience replay buffer
+- Gradient clipping for stability
+- Huber loss (Smooth L1 loss)
+
+---
+
+# 🧠 Key Learning Concepts
 
 - Reinforcement Learning (RL)
-- Deep Q-Network (DQN)
+- Deep Q-Learning (DQN)
+- Double DQN (DDQN)
 - Q-Learning
 - Experience Replay
 - Target Networks
-- Convolutional Neural Networks (CNN)
-- Epsilon-Greedy Exploration
+- Convolutional Neural Networks (CNNs)
+- Exploration vs Exploitation (Epsilon-Greedy)
 
-## 🎯 Future Improvements
+---
 
-- Double DQN (DDQN)
-- Dueling DQN
-- Prioritized Experience Replay (PER)
-- Rainbow DQN
-- Multi-Level Training
-- Transfer Learning
+# ⚙️ Project Structure
+Mario_Game/
+│
+├── agent.py # Main training & testing loop
+├── dqn.py # CNN-based Q-network
+├── wrappers.py # Environment preprocessing
+├── experience_replay.py # Replay buffer
+├── parameters.yaml # Hyperparameters
+│
+├── runs/
+│ ├── checkpoints/ # Auto-saved training checkpoints
+│ └── *_best.pt # Best model weights
+│
+└── venv/ # Virtual environment (ignored in git)
 
-## 📄 References
 
-- DeepMind's Deep Q-Network (DQN)
-- PyTorch Reinforcement Learning Tutorials
-- Gym Super Mario Bros Environment
+---
+
+# 🎯 Training Modes
+
+### Train:
+```bash
+python agent.py default --train
+
+#🎮 Test (Run Trained Agent Continuously)
+python agent.py default
+
+### ✔ Testing mode
+- runs infinite loop
+- does NOT train
+- just evaluates policy
+
+---
